@@ -33,19 +33,6 @@ Operatetip是一个比较灵活的提示信息组件，通常用于AJAX请求等
     });
 
 ##选项设置：
-
-            self.id = self.get('id');
-            self.status = self.get('status');
-            self.classname = self.get('classname');
-            self.msg = self.get('msg');
-            self.top = self.get('top');
-            self.mask = self.get('mask');
-            self.insert = self.get('insert');
-            self.tpl = self.get('tpl');
-            self.show = self.get('show');
-            self.hide = self.get('hide');
-            self.destroy = self.get('destroy');
-            self.transfer = self.get('transfer');
 ***
 
 **id**: （字符串）
