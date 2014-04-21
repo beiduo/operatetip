@@ -149,6 +149,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
             self.hide = self.get('hide');
             self.destroy = self.get('destroy');
             self.transfer = self.get('transfer');
+            self.zIndex = self.get('zIndex');
 
             if (document.getElementById(self.id)) {
                 self.node = document.getElementById(self.id);
@@ -193,8 +194,9 @@ KISSY.add(function (S, Node, Base, XTemplate) {
             fn = function () {
                 self.node.style.position = 'absolute';
                 self.node.style.width = '100%';
-                self.node.style.top = self.top + 'px';
+                self.node.style.top = self.top;
                 self.node.style.left = '0';
+                self.node.style.zIndex = self.zIndex;
                 document.body.appendChild(self.node);
             };
 
