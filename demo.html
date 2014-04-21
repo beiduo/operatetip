@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset='utf-8'>
+
+    <style type="text/css">
+        /*css reset*/
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin: 0; padding: 0;}
+        table{border-collapse: collapse; border-spacing: 0;}
+        fieldset,img{border: 0;}
+        address,caption,cite,code,dfn,em,strong,th,var{font-style: normal; font-weight: normal;}
+        ol,ul{list-style: none;}
+        caption,th{text-align: left;}
+        h1,h2,h3,h4,h5,h6{font-size: 100%; font-weight: normal;}
+        q:before,q:after{content: '';}
+        abbr,acronym{border: 0;}
+        a{text-decoration: none;color: #4b90d1}
+
+        #doc{width:500px;margin:50px auto;border:1px solid #000;}
+
+        .content{
+            padding:20px;
+            border-top:1px solid #999;
+        }
+        .content p{
+            padding:3px;
+        }
+
+        #wrap{
+            background:#73bf4d;
+        }
+
+        .customclass{
+            font-size:20px !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="src/css/ui-operatetip.css"/>
+    <script type="text/javascript" src="http://g.tbcdn.cn/kissy/k/1.4.2/seed-min.js"></script>
+    <script type="text/javascript">
+    KISSY.config({
+        packages: [
+            {
+                name: "operatetip",
+                debug: true,
+                tag: "20130618",
+                path: "./src/js/",
+                charset: "UTF-8"
+            }
+        ]
+    });
+    </script>
+</head>
+<body>
+<div id="doc">
+    <div class="content">
+        <p><a id="J_test1" href="javascript:void(0)">1在容器内显示普通提示</a></p>
+        <p><a id="J_test2" href="javascript:void(0)">2在容器内显示成功提示</a></p>
+        <p><a id="J_test3" href="javascript:void(0)">3在页面顶部显示一个新的提示</a></p>
+        <p><a id="J_test4" href="javascript:void(0)">4将已有的实例变成错误提示（需要有一个实例1/2）</a></p>
+        <p><a id="J_test5" href="javascript:void(0)">5改变模板、内容，改变显示隐藏动画，并放置到另一个div（需要有一个实例1/2）</a></p>
+        <p><a id="J_test6" href="javascript:void(0)">6彻底删除（需要有一个实例1/2）</a></p>
+    </div>
+    <div id="wrap"><div class="content">另一个div</div></div>
+</div>
+
+
+
+<script type="text/javascript">
+    KISSY.use('node, operatetip/index', function (S, Node, OperateTip) {
+        var tip, $ = S.all;
+
+        $('#J_test1').on('click', function (ev) {
+            tip = new OperateTip({
+                id: 'tip1',
+                msg: '正在加载',
+                insert: '#doc'
+            });
+
+            return false;
+        });
+
+        $('#J_test2').on('click', function (ev) {
+            tip = new OperateTip({
+                id: 'tip1',
+                msg: '加载成功',
+                insert: '#doc',
+                status: 'success'
+            });
+
+            return false;
+        });
+
+        $('#J_test3').on('click', function (ev) {
+            var tip2 = new OperateTip({
+                msg: '提示信息',
+                tpl: '这个提示是覆盖在顶部的：<strong style="color:#fc0;">{{msg}}</strong>',
+                zIndex: 9999, //这里可以设置z-index以免被其他元素覆盖
+                mask: null //如果有mask可以在这里传入（可能需要自定义hide或destroy方法）
+            });
+
+            return false;
+        });
+
+        $('#J_test4').on('click', function (ev) {
+            tip.setContent({
+                status: 'error',
+                msg: '这是错误提示'
+            });
+
+            return false;
+        });
+
+        $('#J_test5').on('click', function (ev) {
+            tip.hide(function () {
+                tip.setContent({
+                    tpl: '<em>模板改变啦！！！</em><button>提示信息跑这儿来了：{{msg}}</button>',
+                    msg: '只是另一条提示',
+                    insert: '#wrap',
+                    classname: 'customclass',
+                    show: function () {
+                        var self = this;
+
+                        $(self.node).slideDown();
+
+                        return self;
+                    }
+                }).setStyle().show();
+            });
+
+
+
+            return false;
+        });
+
+        $('#J_test6').on('click', function (ev) {
+            tip.destroy(function () {
+                alert('删除成功');
+            });
+
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

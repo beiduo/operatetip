@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+
+.ui-operatetip{
+  padding-top:12px;
+  padding-bottom:11px;
+  background:#5d6c82;
+  font-size:117%;
+  text-align: center;
+  color:#fff;
+}
+
+.ui-operatetip.error{
+    background-color: #d64646;
+}
+
+.ui-operatetip.success{
+    background-color: #73bf4d;
+}
