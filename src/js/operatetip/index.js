@@ -47,11 +47,21 @@ KISSY.add(function (S, Node, Base, XTemplate) {
         tpl: {
             value: '{{msg}}'
         },
+        transfer: {
+            value: 'fade'
+        },
         show: {
             value: function () {
                 var self = this;
 
-                $(self.node).fadeIn();
+                if (self.transfer === 'fade') {
+                    $(self.node).fadeIn();
+                } else if (self.transfer === 'slide') {
+                    $(self.node).slideDown();
+                } else {
+                    $(self.node).show();
+                }
+                
 
                 return self;
             }
@@ -61,14 +71,36 @@ KISSY.add(function (S, Node, Base, XTemplate) {
                 var self = this;
 
                 if (typeof fn === 'function') {
-                    $(self.node).fadeOut(1, function () {
+                    if (self.transfer === 'fade') {
+                        $(self.node).fadeOut(1, function () {
+                            fn();
+                            if (typeof fn2 === 'function') {
+                                fn2();
+                            }
+                        });
+                    } else if (self.transfer === 'slide') {
+                        $(self.node).slideUp(1, function () {
+                            fn();
+                            if (typeof fn2 === 'function') {
+                                fn2();
+                            }
+                        });
+                    } else {
+                        $(self.node).hide();
                         fn();
                         if (typeof fn2 === 'function') {
                             fn2();
                         }
-                    });
+                    }
+                    
                 } else {
-                    $(self.node).fadeOut();
+                    if (self.transfer === 'fade') {
+                        $(self.node).fadeOut();
+                    } else if (self.transfer === 'slide') {
+                        $(self.node).slideUp();
+                    } else {
+                        $(self.node).hide();
+                    }
                 }
 
                 if (typeof self.mask === 'object') {
@@ -105,7 +137,6 @@ KISSY.add(function (S, Node, Base, XTemplate) {
     S.extend(operateTip, Base, {
         initializer: function () {
             var self = this;
-
             self.id = self.get('id');
             self.status = self.get('status');
             self.classname = self.get('classname');
@@ -117,6 +148,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
             self.show = self.get('show');
             self.hide = self.get('hide');
             self.destroy = self.get('destroy');
+            self.transfer = self.get('transfer');
 
             if (document.getElementById(self.id)) {
                 self.node = document.getElementById(self.id);
