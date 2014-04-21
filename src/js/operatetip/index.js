@@ -7,19 +7,18 @@ KISSY.add(function (S, Node, Base, XTemplate) {
     var $ = S.all;
 
 
-    function operateTip(cfg) {
-        var self = this;
+    function OperateTip(cfg) {
 
-        if (self instanceof operateTip) {
+        if (this instanceof OperateTip) {
 
-            operateTip.superclass.constructor.call(self, cfg);
+            OperateTip.superclass.constructor.call(this, cfg);
         } else {
 
-            return new operateTip(cfg);
+            return new OperateTip(cfg);
         }
     }
 
-    operateTip.ATTRS = {
+    OperateTip.ATTRS = {
         id: {
             value: ''
         },
@@ -39,7 +38,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
             value: 'inherit'
         },
         insert: {
-            value: null,
+            value: null
         },
         mask: {
             value: null
@@ -123,7 +122,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
                     $(self.node).remove();
 
                     for (key in self) {
-                        if (self.hasOwnProperty(key)){
+                        if (self.hasOwnProperty(key)) {
                             delete self[key];
                         }
                     }
@@ -134,7 +133,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
         }
     };
 
-    S.extend(operateTip, Base, {
+    S.extend(OperateTip, Base, {
         initializer: function () {
             var self = this;
             self.id = self.get('id');
@@ -215,7 +214,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
         }
     });
 
-    return operateTip;
+    return OperateTip;
 }, {
     requires: ['node', 'base', 'xtemplate']
 });
