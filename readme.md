@@ -104,3 +104,7 @@ success/error 可调用预置的样式
 **destroy(fn)**
 
 彻底删除提示信息，提供一个回调函数
+
+**P.S**
+
+API支持链式调用，如operateTip.hide().setContent().setStyle().show()
