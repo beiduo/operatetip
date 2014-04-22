@@ -67,6 +67,23 @@ success/error 可调用预置的样式
 
 动画效果，fade/slide/空值，默认为fade，指定为空值将会无动画效果
 
+**mask** (对象)
+
+如果有mask遮罩对象，可以在此传入
+
+**maskRemove** (函数)
+
+与mask一同使用，在此可以定义mask的移除方法以便隐藏或删除提示信息时调用。例如：
+
+    maskRemove: function () {
+        var self = this;
+        if (typeof self.mask === 'object') {
+            try {
+                self.mask.removeMask();
+            } catch (e) {}
+        }
+    }
+
 ##API
 
 **setContent(opt)**

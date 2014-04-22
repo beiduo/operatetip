@@ -101,12 +101,8 @@ KISSY.add(function (S, Node, Base, XTemplate) {
                         $(self.node).hide();
                     }
                 }
-
-                if (typeof self.mask === 'object') {
-                    try {
-                        self.mask.removeMask();
-                    } catch (e) {}
-                }
+                
+                self.maskRemove();
 
                 return self;
             }
@@ -130,6 +126,17 @@ KISSY.add(function (S, Node, Base, XTemplate) {
 
                 return self;
             }
+        },
+        maskRemove: {
+            value: function () {
+                var self = this;
+                
+                if (typeof self.mask === 'object') {
+                    try {
+                        self.mask.removeMask();
+                    } catch (e) {}
+                }
+            }
         }
     };
 
@@ -142,6 +149,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
             self.msg = self.get('msg');
             self.top = self.get('top');
             self.mask = self.get('mask');
+            self.maskRemove = self.get('maskRemove');
             self.insert = self.get('insert');
             self.tpl = self.get('tpl');
             self.show = self.get('show');
