@@ -20,7 +20,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
 
     OperateTip.ATTRS = {
         id: {
-            value: ''
+            value: null
         },
         status: {
             value: ''
@@ -60,7 +60,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
                 } else {
                     $(self.node).show();
                 }
-                
+
 
                 return self;
             }
@@ -91,7 +91,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
                             fn2();
                         }
                     }
-                    
+
                 } else {
                     if (self.transfer === 'fade') {
                         $(self.node).fadeOut();
@@ -101,7 +101,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
                         $(self.node).hide();
                     }
                 }
-                
+
                 self.maskRemove();
 
                 return self;
@@ -130,12 +130,14 @@ KISSY.add(function (S, Node, Base, XTemplate) {
         maskRemove: {
             value: function () {
                 var self = this;
-                
+
                 if (typeof self.mask === 'object') {
                     try {
                         self.mask.removeMask();
                     } catch (e) {}
                 }
+
+                return self;
             }
         }
     };
@@ -158,7 +160,7 @@ KISSY.add(function (S, Node, Base, XTemplate) {
             self.transfer = self.get('transfer');
             self.zIndex = self.get('zIndex');
 
-            if (document.getElementById(self.id)) {
+            if (typeof self.id === 'string' && document.getElementById(self.id)) {
                 self.node = document.getElementById(self.id);
             } else {
                 self.node = document.createElement('div');
